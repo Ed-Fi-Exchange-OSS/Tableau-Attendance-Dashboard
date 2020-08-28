@@ -9,7 +9,7 @@ IF EXISTS (SELECT * FROM edfi.CalendarDate WHERE
 CalendarCode = '2010605675' AND  SchoolYear = 2011)
 
 DELETE  FROM edfi.CalendarDate WHERE SchoolYear = 2011;
-PRINT 'Dell_Lookup Table Dropped'
+PRINT 'CalendarDate for 2011 is deleted'
 END
 
 BEGIN
@@ -17,7 +17,7 @@ IF EXISTS (SELECT * FROM edfi.Calendar WHERE
 CalendarCode = '2010605675' AND  SchoolYear = 2011)
 
 DELETE  FROM edfi.Calendar WHERE SchoolYear = 2011 AND SchoolId IN (255901044,255901001) ;
-PRINT 'Dell_Lookup Table Dropped'
+PRINT 'Calendar for 2011 are deleted'
 END
 
 INSERT INTO edfi.Calendar(CalendarCode,SchoolId,SchoolYear,CalendarTypeDescriptorId) VALUES ('2010605675',255901044,2011,269);

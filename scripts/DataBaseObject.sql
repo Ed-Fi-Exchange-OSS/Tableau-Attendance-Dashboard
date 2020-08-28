@@ -1,5 +1,11 @@
 GO
-/****** Object:  Table [dbo].[Dell_Lookup]    Script Date: 8/16/2020 7:08:27 PM ******/
+IF NOT EXISTS ( SELECT  *
+                FROM    sys.schemas
+                WHERE   name = N'EdFiX_PrincipalDashboard' )
+    EXEC('CREATE SCHEMA [EdFiX_PrincipalDashboard]');
+
+GO
+/****** Object:  Table [EdFiX_PrincipalDashboard].[Lookup]    Script Date: 8/16/2020 7:08:27 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8,13 +14,13 @@ Print 'Create Lookup Table'
 Print '-----------------------------------------------------------'
 BEGIN
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE 
-TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'Dell_Lookup')
+TABLE_SCHEMA = 'EdFiX_PrincipalDashboard' AND  TABLE_NAME = 'Lookup')
 
-DROP TABLE Dell_Lookup;
-PRINT 'Dell_Lookup Table Dropped'
+DROP TABLE [EdFiX_PrincipalDashboard].[Lookup];
+PRINT 'Lookup Table Dropped'
 END
 
-CREATE TABLE [dbo].[Dell_Lookup](
+CREATE TABLE [EdFiX_PrincipalDashboard].[Lookup](
 	[LOOKUP_TYPE] [varchar](250) NULL,
 	[LOOKUP_NAME] [varchar](150) NULL,
 	[LOOKUP_CODE] [varchar](50) NULL,
@@ -27,9 +33,9 @@ CREATE TABLE [dbo].[Dell_Lookup](
 ) ON [PRIMARY]
 GO
 
-PRINT 'Dell_Lookup Table Successfully Created'
+PRINT 'Lookup Table Successfully Created'
 Print '-----------------------------------------------------------'
-/****** Object:  Table [dbo].[Dell_Schools]    Script Date: 8/16/2020 7:08:28 PM ******/
+/****** Object:  Table [EdFiX_PrincipalDashboard].[Schools]    Script Date: 8/16/2020 7:08:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -38,13 +44,13 @@ Print 'Create Schools Table'
 Print '-----------------------------------------------------------'
 BEGIN
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE 
-TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'Dell_Schools')
+TABLE_SCHEMA = 'EdFiX_PrincipalDashboard' AND  TABLE_NAME = 'Schools')
 
-    DROP TABLE Dell_Schools;
-	PRINT 'Dell_Schools Table Dropped'
+    DROP TABLE [EdFiX_PrincipalDashboard].[Schools];
+	PRINT 'Schools Table Dropped'
 END
 
-CREATE TABLE [dbo].[Dell_Schools](
+CREATE TABLE [EdFiX_PrincipalDashboard].[Schools](
 	[SchoolId] [int] NOT NULL,
 	[NameOfInstitution] [nvarchar](75) NULL,
 	[schooltype_description] [nvarchar](1024) NULL,
@@ -86,9 +92,9 @@ CREATE TABLE [dbo].[Dell_Schools](
 ) ON [PRIMARY]
 GO
 
-PRINT 'Dell_Schools Table Successfully Created'
+PRINT 'Schools Table Successfully Created'
 Print '-----------------------------------------------------------'
-/****** Object:  Table [dbo].[Dell_StudentAttendance]    Script Date: 8/16/2020 7:08:28 PM ******/
+/****** Object:  Table [EdFiX_PrincipalDashboard].[StudentAttendance]    Script Date: 8/16/2020 7:08:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -97,13 +103,13 @@ Print 'Create Student Attendance Table'
 Print '-----------------------------------------------------------'
 BEGIN
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE 
-TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'Dell_StudentAttendance')
+TABLE_SCHEMA = 'EdFiX_PrincipalDashboard' AND  TABLE_NAME = 'StudentAttendance')
 
-    DROP TABLE Dell_StudentAttendance;
-	PRINT 'Dell_StudentAttendance Table Dropped'
+    DROP TABLE [EdFiX_PrincipalDashboard].[StudentAttendance];
+	PRINT 'StudentAttendance Table Dropped'
 END
 
-CREATE TABLE [dbo].[Dell_StudentAttendance](
+CREATE TABLE [EdFiX_PrincipalDashboard].[StudentAttendance](
 	[EventDate] [date] NULL,
 	[LastModifiedDate] [datetime2](7) NOT NULL,
 	[SchoolId] [int] NOT NULL,
@@ -134,9 +140,9 @@ CREATE TABLE [dbo].[Dell_StudentAttendance](
 ) ON [PRIMARY]
 GO
 
-PRINT 'Dell_StudentAttendance Table Successfully Created'
+PRINT 'StudentAttendance Table Successfully Created'
 Print '-----------------------------------------------------------'
-/****** Object:  Table [dbo].[Dell_Students]    Script Date: 8/16/2020 7:08:28 PM ******/
+/****** Object:  Table [EdFiX_PrincipalDashboard].[Students]    Script Date: 8/16/2020 7:08:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -145,13 +151,13 @@ PRINT 'Create Students Table'
 Print '-----------------------------------------------------------'
 BEGIN
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE 
-TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'Dell_Students')
+TABLE_SCHEMA = 'EdFiX_PrincipalDashboard' AND  TABLE_NAME = 'Students')
 
-    DROP TABLE Dell_Students;
-	PRINT 'Dell_Students Table Dropped'
+    DROP TABLE [EdFiX_PrincipalDashboard].[Students];
+	PRINT 'Students Table Dropped'
 END
 
-CREATE TABLE [dbo].[Dell_Students](
+CREATE TABLE [EdFiX_PrincipalDashboard].[Students](
 	[LastModifiedDate] [datetime2](7) NOT NULL,
 	[StudentUSI] [int] NOT NULL,
 	[StudentUniqueId] [nvarchar](32) NOT NULL,
@@ -204,21 +210,22 @@ CREATE TABLE [dbo].[Dell_Students](
 	[NoOfStudent] [bigint] NULL
 ) ON [PRIMARY]
 GO
-PRINT 'Dell_Students Table Successfully Created'
+PRINT 'Students Table Successfully Created'
 Print '-----------------------------------------------------------'
-/****** Object:  Table [dbo].[Dell_Students]    Script Date: 8/16/2020 7:08:28 PM ******/
+/****** Object:  Table [EdFiX_PrincipalDashboard].[Students]    Script Date: 8/16/2020 7:08:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 PRINT 'Insert Lookup Table Values'
 Print '-----------------------------------------------------------'
-BEGIN
+ 
+BEGIN 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE 
-TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'Dell_lookup')
-PRINT 'Table Dell_Students Exists, Insert master data to this table'
+TABLE_SCHEMA = 'EdFiX_PrincipalDashboard' AND  TABLE_NAME = 'Lookup')
+PRINT 'Table Students Exists, Insert master data to this table'
 
-INSERT INTO Dell_lookup
+INSERT INTO [EdFiX_PrincipalDashboard].[Lookup]
 VALUES
 (
 'PRESENT_LOOKUP_CODE','','','In Attendance',1,'','','','Y'),
@@ -238,11 +245,14 @@ VALUES
 'SCHOOL_YEAR','','','School Year',2011,'','','','Y'),
 (
 'SCHOOL_YEAR','','','School Year',2012,'','','','N')
-END
+
+
+END;
+
 GO
-PRINT 'Insert Rows to Dell_Lookup Successfully Completed'
+PRINT 'Insert Rows to Lookup Successfully Completed'
 Print '-----------------------------------------------------------'
-/****** Object:  StoredProcedure [dbo].[AttendanceData]    Script Date: 8/16/2020 7:08:28 PM ******/
+/****** Object:  StoredProcedure [EdFiX_PrincipalDashboard].[AttendanceData]    Script Date: 8/16/2020 7:08:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -250,17 +260,17 @@ GO
 PRINT 'Create Attendance data Procedure'
 Print '-----------------------------------------------------------'
 GO
-CREATE OR ALTER  PROCEDURE [dbo].[AttendanceData]
+CREATE OR ALTER  PROCEDURE [EdFiX_PrincipalDashboard].[AttendanceData]
 as
 BEGIN
-DELETE FROM Dell_StudentAttendance WHERE SchoolYear in (Select Lookup_Value From Dell_lookup Where Lookup_Type = 'SCHOOL_YEAR' and Active_Flg = 'Y');
+DELETE FROM [EdFiX_PrincipalDashboard].StudentAttendance WHERE SchoolYear in (Select Lookup_Value From [EdFiX_PrincipalDashboard].Lookup Where Lookup_Type = 'SCHOOL_YEAR' and Active_Flg = 'Y');
 
 WITH max_cal AS
-  (SELECT max(Date) SchoolEndDate
+  (SELECT case when max(schoolyear) = YEAR(GETDATE())+1 and MONTH(GETDATE()) in (8,9,10,11,12) then GETDATE() else max(Date) end SchoolEndDate
    FROM edfi.CalendarDate
    WHERE schoolyear =
        (SELECT lookup_value
-        FROM dell_lookup
+        FROM [EdFiX_PrincipalDashboard].[Lookup]
         WHERE lookup_type = 'SCHOOL_YEAR'
           AND active_flg = 'Y')) ,
      enroll_date AS
@@ -316,7 +326,7 @@ WITH max_cal AS
                                  AND enroll_date.schoolid = cd.schoolid)
    WHERE cd.schoolyear =
        (SELECT lookup_value
-        FROM dell_lookup
+        FROM [EdFiX_PrincipalDashboard].[Lookup]
         WHERE lookup_type = 'SCHOOL_YEAR'
           AND active_flg = 'Y')),
      stud_det AS
@@ -356,7 +366,7 @@ WITH max_cal AS
                    Try_convert(int, CASE
                                         WHEN COALESCE(dsc.codevalue, 'In Attendance') IN
                                                (SELECT lookup_code_desc
-                                                FROM dell_lookup
+                                                FROM [EdFiX_PrincipalDashboard].[Lookup]
                                                 WHERE lookup_type = 'PRESENT_LOOKUP_CODE'
                                                   AND active_flg = 'Y') THEN 1
                                         ELSE 0
@@ -364,7 +374,7 @@ WITH max_cal AS
                    Try_convert(int, CASE
                                         WHEN dsc.codevalue IN
                                                (SELECT lookup_code_desc
-                                                FROM dell_lookup
+                                                FROM [EdFiX_PrincipalDashboard].[Lookup]
                                                 WHERE lookup_type = 'EXABS_LOOKUP_CODE'
                                                   AND active_flg = 'Y') THEN 1
                                         ELSE 0
@@ -372,7 +382,7 @@ WITH max_cal AS
                    Try_convert(int, CASE
                                         WHEN dsc.codevalue IN
                                                (SELECT lookup_code_desc
-                                                FROM dell_lookup
+                                                FROM [EdFiX_PrincipalDashboard].[Lookup]
                                                 WHERE lookup_type = 'UNEXABS_LOOKUP_CODE'
                                                   AND active_flg = 'Y') THEN 1
                                         ELSE 0
@@ -410,7 +420,7 @@ WITH max_cal AS
       WHERE rownum = 1) rc ON (enr.studentusi = rc.studentusi)
    LEFT OUTER JOIN edfi.descriptor rcdesc ON (rc.racedescriptorid = rcdesc.descriptorid)
    LEFT OUTER JOIN edfi.studentspecialeducationprogramassociation sped ON (enr.studentusi = sped.studentusi))
-INSERT INTO dell_studentattendance
+INSERT INTO [EdFiX_PrincipalDashboard].studentattendance
 SELECT *
 FROM stud_det
 END
@@ -418,7 +428,7 @@ GO
 
 PRINT 'Procedure Attendance Data Successfully Created'
 Print '-----------------------------------------------------------'
-/****** Object:  StoredProcedure [dbo].[SchoolData]    Script Date: 8/16/2020 7:08:28 PM ******/
+/****** Object:  StoredProcedure [EdFiX_PrincipalDashboard].[SchoolData]    Script Date: 8/16/2020 7:08:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -426,10 +436,10 @@ GO
 PRINT 'Create School Data Procedure'
 Print '-----------------------------------------------------------'
 GO
-CREATE OR ALTER   PROCEDURE [dbo].[SchoolData]
+CREATE OR ALTER   PROCEDURE [EdFiX_PrincipalDashboard].[SchoolData]
 as
 BEGIN
-TRUNCATE TABLE Dell_Schools;
+TRUNCATE TABLE [EdFiX_PrincipalDashboard].Schools;
 
 DECLARE @PrincipalType nvarchar(50);
 
@@ -546,7 +556,7 @@ WITH sch AS
            edfi.descriptor mailtype
       WHERE mail.addresstypedescriptorid = mailtype.descriptorid
         AND mailtype.CodeValue = 'mailing') mailing ON (s.schoolid = mailing.educationorganizationid))
-INSERT INTO dell_schools
+INSERT INTO [EdFiX_PrincipalDashboard].schools
 SELECT *
 FROM sch 
 END
@@ -554,7 +564,7 @@ GO
 
 PRINT 'Procedure School Data Successfully Created'
 Print '-----------------------------------------------------------'
-/****** Object:  StoredProcedure [dbo].[StudentData]    Script Date: 8/16/2020 7:08:28 PM ******/
+/****** Object:  StoredProcedure [EdFiX_PrincipalDashboard].[StudentData]    Script Date: 8/16/2020 7:08:28 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -562,10 +572,10 @@ GO
 PRINT 'Create Student Data Procedure'
 Print '-----------------------------------------------------------'
 GO
-CREATE OR ALTER     PROCEDURE [dbo].[StudentData]
+CREATE OR ALTER     PROCEDURE [EdFiX_PrincipalDashboard].[StudentData]
 as
 BEGIN
-TRUNCATE TABLE Dell_students;
+TRUNCATE TABLE [EdFiX_PrincipalDashboard].Students;
 
 WITH mulrace AS
   (SELECT studentusi,
@@ -745,7 +755,7 @@ WITH mulrace AS
           Row_number() OVER(PARTITION BY studentusi
                             ORDER BY gradelevel DESC) NoOfStudent
    FROM stud_det)
-INSERT INTO dell_students
+INSERT INTO [EdFiX_PrincipalDashboard].Students
 SELECT *
 FROM reyum_dup
 WHERE noofstudent = 1

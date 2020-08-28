@@ -18,9 +18,9 @@ Write-Output $result
 Write-Output $db3
 
 if ($databases -eq $db3) {
-	Invoke-Sqlcmd -ServerInstance $Server -Database $db3 -InputFile "$((get-location).path)\Dell_InvokeSchoolData.sql"
-	Invoke-Sqlcmd -ServerInstance $Server -Database $db3 -InputFile "$((get-location).path)\Dell_InvokeStudentData.sql"
-	Invoke-Sqlcmd -ServerInstance $Server -Database $db3 -InputFile "$((get-location).path)\Dell_InvokeAttendanceData.sql"
+	Invoke-Sqlcmd -ServerInstance $Server -Database $db3 -InputFile "$((get-location).path)\InvokeSchoolData.sql"
+	Invoke-Sqlcmd -ServerInstance $Server -Database $db3 -InputFile "$((get-location).path)\InvokeStudentData.sql"
+	Invoke-Sqlcmd -ServerInstance $Server -Database $db3 -InputFile "$((get-location).path)\InvokeAttendanceData.sql"
 	}
 else {
 	Write-Output "Database Not Found";
